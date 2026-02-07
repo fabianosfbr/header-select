@@ -47,13 +47,7 @@ class HeaderSelectServiceProvider extends PackageServiceProvider
             $package->hasConfigFile();
         }
 
-        if (file_exists($package->basePath('/../database/migrations'))) {
-            $package->hasMigrations($this->getMigrations());
-        }
-
-        if (file_exists($package->basePath('/../resources/lang'))) {
-            $package->hasTranslations();
-        }
+       
 
         if (file_exists($package->basePath('/../resources/views'))) {
             $package->hasViews(static::$viewNamespace);
@@ -64,20 +58,7 @@ class HeaderSelectServiceProvider extends PackageServiceProvider
 
     public function packageBooted(): void
     {
-        // Asset Registration
-        FilamentAsset::register(
-            $this->getAssets(),
-            $this->getAssetPackageName()
-        );
-
-        FilamentAsset::registerScriptData(
-            $this->getScriptData(),
-            $this->getAssetPackageName()
-        );
-
-        // Icon Registration
-        FilamentIcon::register($this->getIcons());
-
+      
         // Handle Stubs
         if (app()->runningInConsole()) {
             foreach (app(Filesystem::class)->files(__DIR__ . '/../stubs/') as $file) {
@@ -87,8 +68,6 @@ class HeaderSelectServiceProvider extends PackageServiceProvider
             }
         }
 
-        // Testing
-        Testable::mixin(new TestsHeaderSelect);
 
         Livewire::component('header-select-component');
     }
@@ -98,17 +77,7 @@ class HeaderSelectServiceProvider extends PackageServiceProvider
         return 'fabianosfbr/header-select';
     }
 
-    /**
-     * @return array<Asset>
-     */
-    protected function getAssets(): array
-    {
-        return [
-            // AlpineComponent::make('header-select', __DIR__ . '/../resources/dist/components/header-select.js'),
-            Css::make('header-select-styles', __DIR__ . '/../resources/dist/header-select.css'),
-            Js::make('header-select-scripts', __DIR__ . '/../resources/dist/header-select.js'),
-        ];
-    }
+    
 
     /**
      * @return array<class-string>
@@ -120,37 +89,5 @@ class HeaderSelectServiceProvider extends PackageServiceProvider
         ];
     }
 
-    /**
-     * @return array<string>
-     */
-    protected function getIcons(): array
-    {
-        return [];
-    }
-
-    /**
-     * @return array<string>
-     */
-    protected function getRoutes(): array
-    {
-        return [];
-    }
-
-    /**
-     * @return array<string, mixed>
-     */
-    protected function getScriptData(): array
-    {
-        return [];
-    }
-
-    /**
-     * @return array<string>
-     */
-    protected function getMigrations(): array
-    {
-        return [
-            'create_header-select_table',
-        ];
-    }
+    
 }
