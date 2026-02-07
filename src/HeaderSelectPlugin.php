@@ -2,17 +2,19 @@
 
 namespace Fabianosfbr\HeaderSelect;
 
-use Filament\Panel;
 use Filament\Contracts\Plugin;
+use Filament\Panel;
 use Filament\View\PanelsRenderHook;
 
 class HeaderSelectPlugin implements Plugin
 {
     protected array $selects = [];
-    protected static array $callbacks = [];
-    protected static array $optionProviders = [];
-    protected string $globalRounded = '';
 
+    protected static array $callbacks = [];
+
+    protected static array $optionProviders = [];
+
+    protected string $globalRounded = '';
 
     public function getId(): string
     {
@@ -23,7 +25,7 @@ class HeaderSelectPlugin implements Plugin
     {
         $panel->renderHook(
             PanelsRenderHook::TOPBAR_START,
-            fn(): string => view('header-select::selects', [
+            fn (): string => view('header-select::selects', [
                 'selects' => $this->selects,
             ])->render()
         );
@@ -34,7 +36,7 @@ class HeaderSelectPlugin implements Plugin
         $this->selects = $selects;
 
         // Apply global rounded setting to all selects (override individual settings)
-        if (!empty($this->globalRounded)) {
+        if (! empty($this->globalRounded)) {
             foreach ($this->selects as $select) {
                 $select->rounded($this->globalRounded);
             }

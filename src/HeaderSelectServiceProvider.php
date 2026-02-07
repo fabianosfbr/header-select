@@ -2,6 +2,8 @@
 
 namespace Fabianosfbr\HeaderSelect;
 
+use Fabianosfbr\HeaderSelect\Commands\HeaderSelectCommand;
+use Fabianosfbr\HeaderSelect\Testing\TestsHeaderSelect;
 use Filament\Support\Assets\AlpineComponent;
 use Filament\Support\Assets\Asset;
 use Filament\Support\Assets\Css;
@@ -9,14 +11,11 @@ use Filament\Support\Assets\Js;
 use Filament\Support\Facades\FilamentAsset;
 use Filament\Support\Facades\FilamentIcon;
 use Illuminate\Filesystem\Filesystem;
-use Livewire\Livewire;
 use Livewire\Features\SupportTesting\Testable;
+use Livewire\Livewire;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Fabianosfbr\HeaderSelect\Commands\HeaderSelectCommand;
-use Fabianosfbr\HeaderSelect\Components\HeaderSelectComponent;
-use Fabianosfbr\HeaderSelect\Testing\TestsHeaderSelect;
 
 class HeaderSelectServiceProvider extends PackageServiceProvider
 {
