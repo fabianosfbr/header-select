@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Fabianosfbr\HeaderSelect\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class HeaderSelectCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'header-select';
 
     public $description = 'My command';
 

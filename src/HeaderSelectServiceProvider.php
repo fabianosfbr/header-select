@@ -1,6 +1,6 @@
 <?php
 
-namespace VendorName\Skeleton;
+namespace Fabianosfbr\HeaderSelect;
 
 use Filament\Support\Assets\AlpineComponent;
 use Filament\Support\Assets\Asset;
@@ -9,18 +9,20 @@ use Filament\Support\Assets\Js;
 use Filament\Support\Facades\FilamentAsset;
 use Filament\Support\Facades\FilamentIcon;
 use Illuminate\Filesystem\Filesystem;
+use Livewire\Livewire;
 use Livewire\Features\SupportTesting\Testable;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use VendorName\Skeleton\Commands\SkeletonCommand;
-use VendorName\Skeleton\Testing\TestsSkeleton;
+use Fabianosfbr\HeaderSelect\Commands\HeaderSelectCommand;
+use Fabianosfbr\HeaderSelect\Components\HeaderSelectComponent;
+use Fabianosfbr\HeaderSelect\Testing\TestsHeaderSelect;
 
-class SkeletonServiceProvider extends PackageServiceProvider
+class HeaderSelectServiceProvider extends PackageServiceProvider
 {
-    public static string $name = 'skeleton';
+    public static string $name = 'header-select';
 
-    public static string $viewNamespace = 'skeleton';
+    public static string $viewNamespace = 'header-select';
 
     public function configurePackage(Package $package): void
     {
@@ -36,7 +38,7 @@ class SkeletonServiceProvider extends PackageServiceProvider
                     ->publishConfigFile()
                     ->publishMigrations()
                     ->askToRunMigrations()
-                    ->askToStarRepoOnGitHub(':vendor_slug/:package_slug');
+                    ->askToStarRepoOnGitHub('fabianosfbr/header-select');
             });
 
         $configFileName = $package->shortName();
@@ -80,18 +82,20 @@ class SkeletonServiceProvider extends PackageServiceProvider
         if (app()->runningInConsole()) {
             foreach (app(Filesystem::class)->files(__DIR__ . '/../stubs/') as $file) {
                 $this->publishes([
-                    $file->getRealPath() => base_path("stubs/skeleton/{$file->getFilename()}"),
-                ], 'skeleton-stubs');
+                    $file->getRealPath() => base_path("stubs/header-select/{$file->getFilename()}"),
+                ], 'header-select-stubs');
             }
         }
 
         // Testing
-        Testable::mixin(new TestsSkeleton);
+        Testable::mixin(new TestsHeaderSelect);
+
+        Livewire::component('header-select-component');
     }
 
     protected function getAssetPackageName(): ?string
     {
-        return ':vendor_slug/:package_slug';
+        return 'fabianosfbr/header-select';
     }
 
     /**
@@ -100,9 +104,9 @@ class SkeletonServiceProvider extends PackageServiceProvider
     protected function getAssets(): array
     {
         return [
-            // AlpineComponent::make('skeleton', __DIR__ . '/../resources/dist/components/skeleton.js'),
-            Css::make('skeleton-styles', __DIR__ . '/../resources/dist/skeleton.css'),
-            Js::make('skeleton-scripts', __DIR__ . '/../resources/dist/skeleton.js'),
+            // AlpineComponent::make('header-select', __DIR__ . '/../resources/dist/components/header-select.js'),
+            Css::make('header-select-styles', __DIR__ . '/../resources/dist/header-select.css'),
+            Js::make('header-select-scripts', __DIR__ . '/../resources/dist/header-select.js'),
         ];
     }
 
@@ -112,7 +116,7 @@ class SkeletonServiceProvider extends PackageServiceProvider
     protected function getCommands(): array
     {
         return [
-            SkeletonCommand::class,
+            HeaderSelectCommand::class,
         ];
     }
 
@@ -146,7 +150,7 @@ class SkeletonServiceProvider extends PackageServiceProvider
     protected function getMigrations(): array
     {
         return [
-            'create_skeleton_table',
+            'create_header-select_table',
         ];
     }
 }
